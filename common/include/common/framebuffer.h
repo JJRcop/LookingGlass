@@ -38,6 +38,11 @@ bool framebuffer_read(const FrameBuffer frame, void * dst, size_t size);
 bool framebuffer_read_fn(const FrameBuffer frame, FrameBufferReadFn fn, size_t size, void * opaque);
 
 /**
+ * Prepare the framebuffer for writing
+ */
+void framebuffer_prepare(const FrameBuffer frame);
+
+/**
  * Write data from the src buffer into the KVMFRFrame
  */
 bool framebuffer_write(const FrameBuffer frame, const void * src, size_t size);

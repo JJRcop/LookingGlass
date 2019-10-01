@@ -63,6 +63,14 @@ bool framebuffer_read_fn(const FrameBuffer frame, FrameBufferReadFn fn, size_t s
   return true;
 }
 
+/**
+ * Prepare the framebuffer for writing
+ */
+void framebuffer_prepare(const FrameBuffer frame)
+{
+  frame->wp = 0;
+}
+
 bool framebuffer_write(FrameBuffer frame, const void * src, size_t size)
 {
   /* copy in chunks */
