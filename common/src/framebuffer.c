@@ -23,7 +23,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA
 #include <string.h>
 #define FB_CHUNK_SIZE 1024
 
-struct FrameBuffer
+struct stFrameBuffer
 {
   uint64_t  wp;
   uint8_t   data[0];
