@@ -23,50 +23,55 @@ Place, Suite 330, Boston, MA 02111-1307 USA
 #include <string.h>
 #define FB_CHUNK_SIZE 1024
 
+struct FrameBuffer
+{
+  uint64_t  wp;
+  uint8_t   data[0];
+};
+
 bool framebuffer_read(const FrameBuffer frame, void * dst, size_t size)
 {
-  while(size)
+  uint64_t rp = 0;
+  while(rp < size)
   {
     /* spinlock */
-    while(*frame.rp == *frame.wp) { }
+    while(rp == frame->wp) { }
 
     /* copy what we can */
-    uint64_t avail = *frame.wp - *frame.rp;
-    memcpy(dst, frame.data + *frame.rp, avail);
-    *frame.rp += avail;
-    size      -= avail;
+    uint64_t avail = frame->wp - rp;
+    memcpy(dst, frame->data + rp, avail);
+    rp += avail;
   }
-
   return true;
 }
 
 bool framebuffer_read_fn(const FrameBuffer frame, FrameBufferReadFn fn, size_t size, void * opaque)
 {
-  while(size)
+  uint64_t rp = 0;
+  while(rp < size)
   {
     /* spinlock */
-    while(*frame.rp == *frame.wp) { }
+    while(rp == frame->wp) { }
 
     /* copy what we can */
-    uint64_t avail = *frame.wp - *frame.rp;
-    if (!fn(opaque, frame.data + *frame.rp, avail))
+    uint64_t avail = frame->wp - rp;
+    if (!fn(opaque, frame->data + rp, avail))
       return false;
-    *frame.rp += avail;
-    size      -= avail;
+    rp += avail;
   }
 
   return true;
 }
 
-bool framebuffer_write(const FrameBuffer frame, const void * src, size_t size)
+bool framebuffer_write(FrameBuffer frame, const void * src, size_t size)
 {
   /* copy in chunks */
   while(size)
   {
     size_t copy = size > FB_CHUNK_SIZE ? FB_CHUNK_SIZE : size;
-    memcpy(frame.data + *frame.wp, src, copy);
-    *frame.wp += copy;
-    size      -= copy;
+    memcpy(frame->data + frame->wp, src, copy);
+    __sync_fetch_and_add(&frame->wp, copy);
+    size -= copy;
   }
   return true;
 }

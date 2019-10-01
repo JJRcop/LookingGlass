@@ -72,8 +72,6 @@ typedef struct KVMFRFrame
   uint32_t    stride;      // the row stride (zero if compressed data)
   uint32_t    pitch;       // the row pitch  (stride in bytes or the compressed frame size)
   uint64_t    dataPos;     // offset to the frame
-  uint64_t    readPos;     // read offset
-  uint64_t    writePos;    // write offset
 }
 KVMFRFrame;
 

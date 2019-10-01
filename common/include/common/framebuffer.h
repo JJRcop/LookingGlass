@@ -23,13 +23,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef struct FrameBuffer
-{
-  uint8_t           * data;
-  volatile uint64_t * rp;
-  volatile uint64_t * wp;
-}
-FrameBuffer;
+typedef struct FrameBuffer * FrameBuffer;
 
 typedef bool (*FrameBufferReadFn)(void * opaque, const void * src, size_t size);
 
