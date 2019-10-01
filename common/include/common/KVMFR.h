@@ -49,7 +49,7 @@ CursorType;
 
 typedef struct KVMFRCursor
 {
-  uint8_t    flags;       // KVMFR_CURSOR_FLAGS
+  volatile uint8_t flags; // KVMFR_CURSOR_FLAGS
   int16_t    x, y;        // cursor x & y position
 
   uint32_t   version;     // shape version
@@ -65,13 +65,15 @@ KVMFRCursor;
 
 typedef struct KVMFRFrame
 {
-  uint8_t     flags;       // KVMFR_FRAME_FLAGS
+  volatile uint8_t flags;  // KVMFR_FRAME_FLAGS
   FrameType   type;        // the frame data type
   uint32_t    width;       // the width
   uint32_t    height;      // the height
   uint32_t    stride;      // the row stride (zero if compressed data)
   uint32_t    pitch;       // the row pitch  (stride in bytes or the compressed frame size)
   uint64_t    dataPos;     // offset to the frame
+  uint64_t    readPos;     // read offset
+  uint64_t    writePos;    // write offset
 }
 KVMFRFrame;
 
@@ -83,7 +85,7 @@ typedef struct KVMFRHeader
 {
   char        magic[sizeof(KVMFR_HEADER_MAGIC)];
   uint32_t    version;     // version of this structure
-  uint8_t     flags;       // KVMFR_HEADER_FLAGS
+  volatile uint8_t flags;  // KVMFR_HEADER_FLAGS
   KVMFRFrame  frame;       // the frame information
   KVMFRCursor cursor;      // the cursor information
 }

@@ -377,8 +377,14 @@ static int frameThread(void * unused)
       updatePositionInfo();
     }
 
-    const uint8_t * data = (const uint8_t *)state.shm + header.dataPos;
-    if (!state.lgr->on_frame_event(state.lgrData, lgrFormat, data))
+    FrameBuffer frame =
+    {
+      .data = (uint8_t *)state.shm + header.dataPos,
+      .rp   = &state.shm->frame.readPos,
+      .wp   = &state.shm->frame.writePos
+    };
+
+    if (!state.lgr->on_frame_event(state.lgrData, lgrFormat, frame))
     {
       DEBUG_ERROR("renderer on frame event returned failure");
       break;
