@@ -68,7 +68,7 @@ bool framebuffer_write(FrameBuffer frame, const void * src, size_t size)
   /* copy in chunks */
   while(size)
   {
-    size_t copy = size > FB_CHUNK_SIZE ? FB_CHUNK_SIZE : size;
+    size_t copy = size < FB_CHUNK_SIZE ? FB_CHUNK_SIZE : size;
     memcpy(frame->data + frame->wp, src, copy);
     __sync_fetch_and_add(&frame->wp, copy);
     size -= copy;
