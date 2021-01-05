@@ -360,6 +360,8 @@ static int cursorThread(void * unused)
       g_cursor.guest.x       = cursor->x;
       g_cursor.guest.y       = cursor->y;
       g_cursor.guest.valid = true;
+
+      DEBUG_INFO("%dx%d, %dx%d", g_cursor.guest.x, g_cursor.guest.y, g_cursor.guest.hx, g_cursor.guest.hy);
     }
 
     lgmpClientMessageDone(queue);
