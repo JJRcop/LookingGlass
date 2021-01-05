@@ -303,6 +303,12 @@ static bool dxgi_init()
     goto fail;
   }
 
+    DEBUG_INFO("%ldx%ld, %ldx%ld",
+        outputDesc.DesktopCoordinates.left,
+        outputDesc.DesktopCoordinates.top,
+        outputDesc.DesktopCoordinates.right,
+        outputDesc.DesktopCoordinates.bottom);
+
   static const D3D_FEATURE_LEVEL win8[] =
   {
     D3D_FEATURE_LEVEL_11_1,
@@ -834,6 +840,8 @@ static CaptureResult dxgi_capture()
           DEBUG_ERROR("Unsupported cursor format");
           return CAPTURE_RESULT_ERROR;
       }
+      
+	  DEBUG_INFO("%ldx%ld", shapeInfo.HotSpot.x, shapeInfo.HotSpot.y);
 
       CURSORINFO ci = { .cbSize = sizeof(CURSORINFO) };
       ICONINFO ii;
