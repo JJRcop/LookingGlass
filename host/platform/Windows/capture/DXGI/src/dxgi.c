@@ -843,26 +843,12 @@ static CaptureResult dxgi_capture()
       
 	  DEBUG_INFO("%ldx%ld", shapeInfo.HotSpot.x, shapeInfo.HotSpot.y);
 
-      CURSORINFO ci = { .cbSize = sizeof(CURSORINFO) };
-      ICONINFO ii;
-      if (GetCursorInfo(&ci) && ci.hCursor && GetIconInfo(ci.hCursor, &ii))
-      {
-        DeleteObject(ii.hbmMask);
-        DeleteObject(ii.hbmColor);
-
-        pointer.hx = ii.xHotspot;
-        pointer.hy = ii.yHotspot;
-      }
-      else
-      {
-        pointer.hx = 0;
-        pointer.hy = 0;
-      }
-
       pointer.shapeUpdate = true;
       pointer.width       = shapeInfo.Width;
       pointer.height      = shapeInfo.Height;
       pointer.pitch       = shapeInfo.Pitch;
+      pointer.hx          = shapeInfo.HotSpot.x;
+      pointer.hy          = shapeInfo.HotSpot.y;
       postPointer         = true;
     }
   }
