@@ -175,7 +175,7 @@ your virtual machine.
 ```
 
 The memory size (show as 32 in the example above) may need to be
-adjusted as per [Determining Memory](#Determining_Memory)
+adjusted as per [Determining Memory](#Determining-Memory)
 section.
 
 #### Spice Server
@@ -229,7 +229,7 @@ the bus to suit your particular configuration:
 ```
 
 The memory size (show as 32 in the example above) may need to be
-adjusted as per [Determining Memory](#Determining_Memory)
+adjusted as per [Determining Memory](#Determining-Memory)
 section.
 
 ### Determining Memory
@@ -261,8 +261,8 @@ do not use this without altering it for your requirements):
 ## Looking Glass Service (Windows)
 
 You must first run the Windows VM with the changes noted above in either
-the [libvirt](#libvirt_Configuration) or
-[Qemu](#Qemu_Commands) sections.
+the [libvirt](#libvirt-Configuration) or
+[Qemu](#Qemu-Commands) sections.
 
 ### Installing the IVSHMEM Driver
 
