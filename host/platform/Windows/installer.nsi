@@ -33,12 +33,8 @@ ShowInstDetails "show"
 ShowUninstDetails "show"
 ManifestDPIAware true
 
-!ifndef BUILD_32BIT
 Target AMD64-Unicode
-InstallDir "$PROGRAMFILES\Looking Glass (host)"
-!else
 InstallDir "$PROGRAMFILES64\Looking Glass (host)"
-!endif
 
 !define MUI_ICON "icon.ico"
 !define MUI_UNICON "icon.ico"
